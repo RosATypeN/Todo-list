@@ -6,22 +6,74 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>To-Do lists</title>
     <link href="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/4.6.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background: linear-gradient(120deg, #f6d365 0%, #fda085 100%);
+            min-height: 100vh;
+            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+            color: #2c3e50;
+        }
+        .todo-container {
+            margin-top: 80px;
+            margin-bottom: 50px;
+        }
+        .todo-card {
+            background: rgba(255, 255, 255, 0.95);
+            border: none;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+            padding: 40px;
+            transition: all 0.3s ease;
+        }
+        .todo-title {
+            font-weight: 700;
+            margin-bottom: 30px;
+            color: #ff6b6b;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.05);
+        }
+        .form-control-custom {
+            border: 2px solid #ffe1da;
+            border-radius: 30px;
+            padding: 15px 25px;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+        }
+        .form-control-custom:focus {
+            border-color: #fda085;
+            box-shadow: 0 0 15px rgba(253, 160, 133, 0.4);
+            outline: none;
+        }
+        .todo-table {
+            background: #ffffff;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+        }
+        .todo-table td {
+            padding: 15px 20px !important;
+            font-size: 1.05rem;
+            vertical-align: middle;
+            border-top: 1px solid #f8f9fa;
+        }
+        .todo-table tr:hover {
+            background-color: #fff9f8;
+        }
+    </style>
 </head>
 <body>
-    <div class="container">
+    <div class="container todo-container">
         <div class="row justify-content-center">
-            <div class="col-md-6 text-center jumbotron" style="background-color: transparent;">
-                <h1>{% block header_text %}{% endblock %}</h1>
-                <form method="POST" action="{% block form_action %}{% endblock %}">
-                    <input name="item_text" id="id_new_item" class="form-control form-control-lg" placeholder="Enter a to-do item" />
-                    {% csrf_token %}
-                </form>
-            </div>
-        </div>
+            <div class="col-md-7 col-lg-6">
+                <div class="todo-card text-center">
+                    <h1 class="todo-title">{% block header_text %}{% endblock %}</h1>
+                    
+                    <form method="POST" action="{% block form_action %}{% endblock %}" class="mb-4">
+                        <input name="item_text" id="id_new_item" class="form-control form-control-custom" placeholder="Enter a to-do item" autocomplete="off" />
+                        {% csrf_token %}
+                    </form>
 
-        <div class="row justify-content-center">
-            <div class="col-md-6">
-                {% block table %}{% endblock %}
+                    {% block table %}{% endblock %}
+                </div>
             </div>
         </div>
     </div>
