@@ -1,4 +1,5 @@
 import time
+import os
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.common.keys import Keys
@@ -11,6 +12,11 @@ class NewVisitorTest(LiveServerTestCase):
 
     def setUp(self):
         self.browser = webdriver.Chrome()
+        # (1) 检查系统中是否配置了 REAL_SERVER 环境变量
+        real_server = os.environ.get('REAL_SERVER')
+        if real_server:
+            # (2) 如果有，则将测试目标直接指向真实的公网服务器
+            self.live_server_url = 'http://' + real_server
 
     def tearDown(self):
         self.browser.quit()
